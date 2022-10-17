@@ -1,0 +1,132 @@
+paperkey (1.6-1) unstable; urgency=medium
+
+  * New upstream version 1.6
+  * d/watch: use https upstream, thanks David Shaw!
+  * drop patch, applied upstream
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Tue, 23 Oct 2018 17:03:00 -0400
+
+paperkey (1.5-5) unstable; urgency=medium
+
+  * move to DEP-14 packaging
+  * use wrap-and-sort -ast
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Wed, 17 Oct 2018 11:03:59 -0400
+
+paperkey (1.5-4) unstable; urgency=medium
+
+  [ Peter Palfrader ]
+  * Update Vcs-{Browser,Git} to point to
+    https://salsa.debian.org/debian/paperkey{,.git}.
+
+  [ Ondřej Nový ]
+  * d/copyright: Use https protocol in Format field
+
+  [ Daniel Kahn Gillmor ]
+  * standards-version: bump to 4.2.1 (no changes needed)
+  * add Rules-Requires-Root: no
+  * move to debhelper 11
+  * d/changelog: strip trailing whitespace
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Wed, 17 Oct 2018 10:57:02 -0400
+
+paperkey (1.5-3) unstable; urgency=medium
+
+  * clear up autoconf stuff from future imports
+  * Use upstream patch to fix running the test suite in parallel
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Mon, 20 Nov 2017 15:13:31 +0100
+
+paperkey (1.5-2) unstable; urgency=medium
+
+  * avoid parallel test suite (Closes: #881792)
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Wed, 15 Nov 2017 14:21:09 +0800
+
+paperkey (1.5-1) unstable; urgency=medium
+
+  * New upstream version 1.5 (Closes: #879512)
+  * move to unstable
+  * drop autotools explicit dependency, since we use dh 10
+  * Standards-Version: 4.1.1 (no changes needed)
+  * whitespace clean up
+  * add basic autopkgtest
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Wed, 15 Nov 2017 10:24:40 +0800
+
+paperkey (1.4-1) experimental; urgency=medium
+
+  * New upstream version (Closes: #855884)
+    - to experimental instead of unstable because of the freeze
+  * prepare watch file
+  * correct Vcs- fields
+  * convert to debhelper 10
+  * bump standards-version to 3.9.8 (no changes needed)
+  * explicitly use 3.0 (quilt)
+  * convert copyright to DEP5
+  * added myself to uploaders
+  * enable hardening flags
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Wed, 22 Feb 2017 16:05:49 -0500
+
+paperkey (1.3-2) unstable; urgency=low
+
+  * Build depend on autotools-dev and call dh with --with autotools_dev.
+    This will cause the build to use updated config.{sub,guess} files
+    (closes: #727487).
+
+ -- Peter Palfrader <weasel@debian.org>  Tue, 03 Dec 2013 19:35:18 +0100
+
+paperkey (1.3-1) unstable; urgency=low
+
+  * New upstream version (closes: #694981).
+    - Adds support for ECDH and ECDSA keys as per RFC 6637.
+  * Update debian/copyright file.
+  * Switch to minimal dh style debian/rules - Add build dependency on
+    debhelper >= 9.
+  * Add Vcs-Git and Vcs-Browser to source.
+  * Raise Standards-Version to 3.9.4 - no changes required.
+  * Add ${misc:Depends} dependency.
+
+ -- Peter Palfrader <weasel@debian.org>  Fri, 10 May 2013 22:14:03 +0200
+
+paperkey (1.2-1) unstable; urgency=low
+
+  * New upstream version.
+    - Creates output files with more restrictive permissions (closes: #550928).
+
+ -- Peter Palfrader <weasel@debian.org>  Thu, 15 Oct 2009 08:39:00 +0200
+
+paperkey (1.1-1) unstable; urgency=low
+
+  * New upstream version.
+  * Fix a minor typo in the short description.
+  * Add Homepage field to debian/control.
+  * Copy code to handle parallel builds from policy to debian/rules.
+  * Support nocheck option for DEB_BUILD_OPTIONS.
+  * Update Standards-Version to 3.8.1.
+
+ -- Peter Palfrader <weasel@debian.org>  Sun, 31 May 2009 12:15:00 +0200
+
+paperkey (0.8-1) unstable; urgency=low
+
+  * New upstream version.
+    - Fixes unaligned memory access issue that caused the test suite to
+      fail (closes: #460422).
+
+ -- Peter Palfrader <weasel@debian.org>  Tue,  5 Feb 2008 11:59:47 +0100
+
+paperkey (0.7-1) unstable; urgency=low
+
+  * New upstream version.
+    - The manpage is now part of upstream, remove it from debian
+      directory.
+  * Run make check after build.
+
+ -- Peter Palfrader <weasel@debian.org>  Wed,  3 Oct 2007 15:54:13 +0200
+
+paperkey (0.6-1) unstable; urgency=low
+
+  * Initial release (Closes: #443548).
+
+ -- Peter Palfrader <weasel@debian.org>  Mon, 24 Sep 2007 17:27:17 +0200

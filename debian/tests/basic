@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e
+
+SECRET="secret message"
+
+# two GnuPG homedirs (A, B) represent different users
+for x in A B; do
+    tmpdir="${AUTOPKGTEST_TMP}/gpg${x}"
+    declare gpg$x="gpg --homedir=${tmpdir} --quiet --batch --no-tty"
+    mkdir -m 0700 "$tmpdir"
+done
+
+
+# A has the secret key
+$gpgA --debug-quick-random --pinentry-mode=loopback --passphrase '' \
+      --quick-gen-key 'Test User <test@example.org>' 2>&1
+$gpgA --list-keys
+
+# A publishes their pubkey to "the keyserver"
+$gpgA --export test@example.org > "${AUTOPKGTEST_TMP}/pseudo-keyserver"
+
+# A backs up their secret key
+$gpgA --export-secret-key test@example.org | paperkey -o "${AUTOPKGTEST_TMP}/paperkey.backup"
+
+# B is a peer who learns about A's key from "the keyserver"
+$gpgB --import < "${AUTOPKGTEST_TMP}/pseudo-keyserver"
+
+# B sends A a secret message
+echo "$SECRET" | $gpgB --trust-model=always --recipient test@example.org --armor \
+                      --encrypt > "${AUTOPKGTEST_TMP}/encrypted.asc"
+
+# A drops their computer in the toilet
+rm -rf "${AUTOPKGTEST_TMP}/gpgA"
+mkdir -m 0700 "${AUTOPKGTEST_TMP}/gpgA"
+
+# A sets up a new computer, and recovers their pubkey from the
+# keyserver and their backup
+paperkey --pubring="${AUTOPKGTEST_TMP}/pseudo-keyserver" \
+         < "${AUTOPKGTEST_TMP}/paperkey.backup" \
+         | $gpgA --import
+
+# A tries to read the secret message
+diff -u <($gpgA --decrypt < "${AUTOPKGTEST_TMP}/encrypted.asc") <(echo "$SECRET")
